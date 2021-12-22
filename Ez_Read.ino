@@ -7,15 +7,14 @@
  *  the updated Teensy I2c Library (i2c_t3) which makes use of the other I2C ports present
  *  on the Teensy 3.6 Board. This sketch also combines the use of the TCA9548A multiplexer 
  *  with the TSL2591 sensors.
-                    +----+----+----+----+
-                    | 1  | 2  | 3  | 4  |
- TCA9548A_address1  +----+----+----+----+
-                    | 5  | 6  | 7  | 8  |
---------------------+----+----+----+----+
-                    | 9  | 10 | 11 | 12 |
- TCA9548A_address2  +----+----+----+----+
-                    | 13 | 14 | 15 | 16 |
-                    +----+----+----+----+
+                    +----+----+----+----++----+----+----+----+
+                    | 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  |
+ TCA9548A_address1  +----+----+----+----++----+----+----+----+
+                    
+--------------------+----+----+----+----++----+----+----+----+
+                    | 9  | 10 | 11 | 12 |13 | 14 | 15 | 16 |
+ TCA9548A_address2  +----+----+----+----++----+----+----+----+
+
 */
 
 void tcaselect1(uint8_t i) {
