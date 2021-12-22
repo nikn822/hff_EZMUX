@@ -99,7 +99,7 @@ void configureSensor(Adafruit_TSL2591 tsl)
 }
    
 int * Matrix() {
-  int matrix[2][8];
+  static int matrix[2][8];
   
   for(int i = 0; i <= 8; i++){
     tcaselect1(i);
