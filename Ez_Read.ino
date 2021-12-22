@@ -37,7 +37,7 @@ void tcaselect2(uint8_t i) {
 Adafruit_TSL2591 tsl1 = Adafruit_TSL2591(WIRE1_BUS, -1);
 Adafruit_TSL2591 tsl2 = Adafruit_TSL2591(WIRE2_BUS, -1);
 
-void simpleRead(Adafruit_TSL2591 tsl)
+int simpleRead(Adafruit_TSL2591 tsl)
 {
   // Simple data read example. Just read the infrared, fullspecrtrum diode 
   // or 'visible' (difference between the two) channels.
@@ -49,6 +49,7 @@ void simpleRead(Adafruit_TSL2591 tsl)
   Serial.print(F("[ ")); Serial.print(millis()); Serial.print(F(" ms ] "));
   Serial.print(F("Luminosity: "));
   Serial.println(x, DEC);
+  return x;
 }
 
 void advancedRead(Adafruit_TSL2591 tsl)
@@ -96,44 +97,29 @@ void configureSensor(Adafruit_TSL2591 tsl)
   Serial.println(F("------------------------------------"));
   Serial.println(F(""));
 }
+   
+int * Matrix() {
+  int matrix[2][8];
+  
+  for(int i = 0; i <= 8; i++){
+    tcaselect1(i);
+    if(tsl1.begin()){
+      matrix[1][i]= simpleRead(tsl1);
+    }
+  }
+  for(int j = 0; j <= 8; j++){
+    tcaselect2(j);
+    if(tsl1.begin()){
+      matrix[2][j]= simpleRead(tsl2);
+    }
+  }
+  return matrix;
 
-
+}
 void setup() {
   // Initialize Adafruit TSL2591 i2c interface over Wire1 and Wire2
   Serial.begin(9600);
   Serial.println("TESTING");
   Wire1.begin();
   Wire2.begin();
-}
-   
-void loop() {
-
-  // Read TSL 1
-  tcaselect1(7);
-  tsl1.begin();
-  Serial.println("TSL Sensor #1");
-  simpleRead(tsl1);
-
-  // Read TSL 2
-  tcaselect1(6);
-  tsl1.begin();
-  Serial.println("TSL Sensor #2");
-  simpleRead(tsl1);
-
-  // Read TSL 3
-  tcaselect2(7);
-  tsl2.begin();
-  Serial.println("TSL Sensor #3");
-  simpleRead(tsl2);
-
-  // Read TSL 4
-  tcaselect2(6);
-  tsl2.begin();
-  Serial.println("TSL Sensor #4");
-  simpleRead(tsl2);
-
-  Serial.println();
-
-  delay(500);
-
 }
